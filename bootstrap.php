@@ -1,0 +1,8 @@
+<?php 
+namespace App;
+
+require __DIR__.'/vendor/autoload.php';
+
+define('BASE_PATH', __DIR__);
+
+?>

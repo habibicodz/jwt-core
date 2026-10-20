@@ -6,17 +6,25 @@ final class JwtUtil
 {
     public static function createJwt(): string
     {
-        $jsonHeader = self::createProtectedHeaderJson();
-
-        $protectedHeader = Base64Url::encode($jsonHeader);
+        $protectedHeader = Base64Url::encode(self::createProtectedHeaderJson());
         $payload = Base64Url::encode(self::createPayloadJson());
-        $signature = Base64Url::encode(self::HMACed($protectedHeader . "." . $payload));
+        $signature = Base64Url::encode(self::HMACed($protectedHeader . "." . $payload, self::createTestKey()));
         return $protectedHeader . "." . $payload . "." . $signature;
     }
 
-    private static function HMACed(string $data): string
+    private static function HMACed(string $data, $key): string
     {
-        return "";
+        return hash_hmac("sha256", $data, $key, true);
+    }
+
+    private static function createTestKey(): string
+    {
+        $jwk = [
+            "kty" => "oct",
+            "k" => "AyM1SysPpbyDfgZld3umj1qzKObwVMkoqQ-EstJQLr_T-1qS0gZH75aKtMN3Yj0iPS4hcgUuTwjAzZr1Z9CAow"
+        ];
+
+        return Base64Url::decode($jwk["k"]);
     }
 
     private static function createProtectedHeaderJson(): string

@@ -1,10 +1,10 @@
 <?php
-require __DIR__ . '/../bootstrap.php';
-use App\AuthUtil;
-use App\jwt\Base64Url;
-use App\jwt\JwtUtil;
 
-print_r(JwtUtil::createJwt());
+use App\jwt\JwtTest;
+require __DIR__ . '/../bootstrap.php';
+
+print_r(JwtTest::createJwt());
+// print_r(hash_hmac_algos());
 
 // if (AuthUtil::isAuthenticated()) {
 //     header("Location: /user/dashboard.php");

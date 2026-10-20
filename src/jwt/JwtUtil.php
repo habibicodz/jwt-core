@@ -6,10 +6,11 @@ final class JwtUtil
 {
     public static function createJwt(): string
     {
-        $protectedHeader = Base64Url::encode(self::createProtectedHeaderJson());
+        $jsonHeader = self::createProtectedHeaderJson();
+
+        $protectedHeader = Base64Url::encode($jsonHeader);
         $payload = Base64Url::encode(self::createPayloadJson());
         $signature = Base64Url::encode(self::HMACed($protectedHeader . "." . $payload));
-
         return $protectedHeader . "." . $payload . "." . $signature;
     }
 
@@ -20,14 +21,13 @@ final class JwtUtil
 
     private static function createProtectedHeaderJson(): string
     {
-        return json_encode(["typ" => "JWT", "alg" => "HS256"], JSON_THROW_ON_ERROR);
+        return json_encode(["typ" => "JWT", "alg" => "HS256"], JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
     }
 
     private static function createPayloadJson(): string
     {
-        return json_encode(["iss" => "joe", "exp" => 1300819380, "http://example.com/is_root" => true], JSON_THROW_ON_ERROR);
+        return json_encode(["iss" => "joe", "exp" => 1300819380, "http://example.com/is_root" => true], JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
     }
 }
-
 
 ?>

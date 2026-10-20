@@ -1,21 +1,25 @@
 <?php
 require __DIR__ . '/../bootstrap.php';
 use App\AuthUtil;
+use App\jwt\Base64Url;
+use App\jwt\JwtUtil;
 
-if (AuthUtil::isAuthenticated()) {
-    header("Location: /user/dashboard.php");
-    exit;
-}
+print_r(JwtUtil::createJwt());
 
-$authenticated = null;
-$loginSubmitted = false;
+// if (AuthUtil::isAuthenticated()) {
+//     header("Location: /user/dashboard.php");
+//     exit;
+// }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['password'])) {
-    $loginSubmitted = true;
-    $credentials = ["email" => $_POST["email"], "password" => $_POST["password"]];
+// $authenticated = null;
+// $loginSubmitted = false;
 
-    $authenticated = AuthUtil::authenticate($credentials);
-}
+// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['password'])) {
+//     $loginSubmitted = true;
+//     $credentials = ["email" => $_POST["email"], "password" => $_POST["password"]];
+
+//     $authenticated = AuthUtil::authenticate($credentials);
+// }
 
 ?>
 
@@ -36,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
             color: #eee;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             min-width: 320px;
@@ -86,7 +92,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
             transition: border-color .15s ease;
         }
 
-        form .input::placeholder { color: #777; }
+        form .input::placeholder {
+            color: #777;
+        }
 
         form .input:focus {
             border-color: #888;
@@ -130,7 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
         }
 
         @media (max-width: 480px) {
-            .form-container { padding: 24px 20px; }
+            .form-container {
+                padding: 24px 20px;
+            }
         }
     </style>
 </head>
@@ -142,12 +152,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['pass
 
             <div class="input-group">
                 <label class="input-label" for="email">Email</label>
-                <input class="input" type="email" name="email" id="email" placeholder="you@example.com" autocomplete="username" required>
+                <input class="input" type="email" name="email" id="email" placeholder="you@example.com"
+                    autocomplete="username" required>
             </div>
 
             <div class="input-group">
                 <label class="input-label" for="password">Password</label>
-                <input class="input" type="password" name="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+                <input class="input" type="password" name="password" id="password" placeholder="Enter your password"
+                    autocomplete="current-password" required>
             </div>
 
             <button class="submit-btn" type="submit" id="login-submit-btn">Sign in</button>

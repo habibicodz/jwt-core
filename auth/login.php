@@ -1,56 +1,59 @@
 <?php
-
-use App\jwt\JwtTest;
-require __DIR__ . '/../bootstrap.php';
-
-print_r(JwtTest::createJwt());
-// print_r(hash_hmac_algos());
-
-// if (AuthUtil::isAuthenticated()) {
-//     header("Location: /user/dashboard.php");
-//     exit;
-// }
-
-// $authenticated = null;
-// $loginSubmitted = false;
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['email'], $_POST['password'])) {
-//     $loginSubmitted = true;
-//     $credentials = ["email" => $_POST["email"], "password" => $_POST["password"]];
-
-//     $authenticated = AuthUtil::authenticate($credentials);
-// }
-
+if (isset($_POST['username'])) {
+    echo "No request for now";
+}
+$activeMenu = "login";
+$pageTitle = "Login";
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in | JWT Playground</title>
+    <title><?= $pageTitle ?></title>
 
+    <link rel="stylesheet" href="../assets/App.css">
     <style>
-        :root {
-            color-scheme: dark;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #111;
+        main {
+            width: 100%;
+            height: max-content;
+            max-width: 960px;
+            display: flex;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 32px;
+            flex: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 6px;
+            text-decoration: none;
+            font: inherit;
+            font-weight: 600;
+            transition: background-color .15s ease;
+        }
+
+        .btn-primary {
+            background: #eee;
+            color: #111;
+        }
+
+        .btn-primary:hover {
+            background: #d5d5d5;
+        }>
+
+        .btn-outline {
+            border: 1px solid #3a3a3a;
             color: #eee;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            min-width: 320px;
-            min-height: 100vh;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            padding: 24px;
+        .btn-outline:hover {
+            border-color: #888;
         }
 
         .container {
@@ -128,49 +131,35 @@ print_r(JwtTest::createJwt());
             outline: 2px solid #aaa;
             outline-offset: 2px;
         }
-
-        .testing-note {
-            margin: -5px 0 0;
-            color: #888;
-            font-size: .75rem;
-            line-height: 1.4;
-            text-align: center;
-        }
-
-        @media (max-width: 480px) {
-            .form-container {
-                padding: 24px 20px;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <form id="login-form" class="form-container" method="POST" action="">
-            <h1>Sign in</h1>
+    <?php require("../components/header.php"); ?>
 
-            <div class="input-group">
-                <label class="input-label" for="email">Email</label>
-                <input class="input" type="email" name="email" id="email" placeholder="you@example.com"
-                    autocomplete="username" required>
-            </div>
+    <main>
+        <div class="container">
+            <form id="login-form" class="form-container" method="POST" action="login.php">
+                <h1>Login</h1>
 
-            <div class="input-group">
-                <label class="input-label" for="password">Password</label>
-                <input class="input" type="password" name="password" id="password" placeholder="Enter your password"
-                    autocomplete="current-password" required>
-            </div>
+                <div class="input-group">
+                    <label class="input-label" for="username">Username</label>
+                    <input class="input" type="username" name="username" id="email" placeholder="username"
+                        autocomplete="username" required>
+                </div>
 
-            <button class="submit-btn" type="submit" id="login-submit-btn">Sign in</button>
-            <p class="testing-note">Testing site · The authentication result appears in a browser alert.</p>
-        </form>
-    </div>
-    <?php if ($loginSubmitted): ?>
-        <script>
-            alert(<?= json_encode($authenticated ?? 'Authentication failed.', JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>);
-        </script>
-    <?php endif; ?>
+                <div class="input-group">
+                    <label class="input-label" for="password">Password</label>
+                    <input class="input" type="password" name="password" id="password" placeholder="Enter your password"
+                        autocomplete="current-password" required>
+                </div>
+
+                <button class="submit-btn" type="submit" id="login-submit-btn">Login</button>
+            </form>
+        </div>
+    </main>
+
+    <?php require("../components/footer.php"); ?>
 </body>
 
 </html>

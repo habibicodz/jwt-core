@@ -45,9 +45,9 @@ $pageTitle = "Login";
 
         .btn-primary:hover {
             background: #d5d5d5;
-        }>
+        }
 
-        .btn-outline {
+        >.btn-outline {
             border: 1px solid #3a3a3a;
             color: #eee;
         }
@@ -139,7 +139,7 @@ $pageTitle = "Login";
 
     <main>
         <div class="container">
-            <form id="login-form" class="form-container" method="POST" action="login.php">
+            <form id="login-form" class="form-container" method="POST" action="login.post.php">
                 <h1>Login</h1>
 
                 <div class="input-group">

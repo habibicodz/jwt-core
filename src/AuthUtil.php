@@ -1,6 +1,8 @@
 <?php
 namespace App;
 
+session_start();
+
 use App\jwt\JwtUtil;
 
 class AuthUtil
@@ -10,7 +12,7 @@ class AuthUtil
 
     public static function isAuthenticated(): bool
     {
-        return isset($_REQUEST['Authorization']);
+        return isset($_SESSION['userid']);
     }
 
 
@@ -22,7 +24,7 @@ class AuthUtil
         $isValid = AuthUtil::$valid_email == $email && AuthUtil::$valid_password == $password;
 
         $jwt = ($isValid) ? JwtUtil::createJwt() : NULL;
-        
+
         return $jwt;
     }
 }

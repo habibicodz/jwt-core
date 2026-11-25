@@ -3,7 +3,7 @@ namespace App;
 
 session_start();
 
-use App\jwt\JwtUtil;
+use App\jwtcore\JwtUtil;
 
 class AuthUtil
 {

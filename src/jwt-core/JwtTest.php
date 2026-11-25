@@ -1,13 +1,14 @@
 <?php
-namespace App\jwt;
+
+namespace App\jwtcore;
 
 
-final class JwtUtil
+class JwtTest
 {
     public static function createJwt(): string
     {
-        $protectedHeader = Base64Url::encode(self::createProtectedHeaderJson());
-        $payload = Base64Url::encode(self::createPayloadJson());
+        $protectedHeader = Base64Url::encode(self::createHeader());
+        $payload = Base64Url::encode(self::createPayload());
         $signature = Base64Url::encode(self::HMACed($protectedHeader . "." . $payload, self::createTestKey()));
         return $protectedHeader . "." . $payload . "." . $signature;
     }
@@ -27,14 +28,16 @@ final class JwtUtil
         return Base64Url::decode($jwk["k"]);
     }
 
-    private static function createProtectedHeaderJson(): string
+    private static function createHeader(): string
     {
-        return json_encode(["typ" => "JWT", "alg" => "HS256"], JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES);
+        // {"typ":"JWT",\r\n "alg":"HS256"}
+        return "{\"typ\":\"JWT\",\r\n \"alg\":\"HS256\"}";
     }
 
-    private static function createPayloadJson(): string
+    private static function createPayload(): string
     {
-        return json_encode(["iss" => "joe", "exp" => 1300819380, "http://example.com/is_root" => true], JSON_THROW_ON_ERROR | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        // {"iss":"joe",\r\n "exp":1300819380,\r\n "http://example.com/is_root":true}
+        return "{\"iss\":\"joe\",\r\n \"exp\":1300819380,\r\n \"http://example.com/is_root\":true}";
     }
 }
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\jwt;
+namespace App\jwtcore;
 
 use Exception;
 

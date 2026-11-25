@@ -2,7 +2,6 @@
 namespace App\utils;
 
 use PDO;
-use stdClass;
 use Throwable;
 
 class DBUtil

@@ -1,13 +1,9 @@
 <?php
-
-
 namespace App;
 
 session_start();
 
 use App\utils\DBUtil;
-
-
 
 require('../bootstrap.php');
 
@@ -23,6 +19,4 @@ if (!$result && !isset($result->username)) {
     $_SESSION['userid'] = $result->id;
     exit;
 }
-
-
 ?>

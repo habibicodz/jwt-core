@@ -10,7 +10,12 @@ Rather than relying on an existing library, every piece is built by hand (Base64
 
 The goal is to follow the official RFC specifications closely.
 
-> **Note:** Detailed references to the specific RFCs will be added later.
+## References
+
+- [RFC 7515 — JSON Web Signature (JWS): information page](https://www.rfc-editor.org/info/rfc7515/)
+- [RFC 7515 — full specification on a single page](https://www.rfc-editor.org/rfc/rfc7515.html)
+
+Both links refer to the same specification, but serve different purposes. The `info` page is the RFC Editor's landing page: it shows the document's status, authors, publication history, and links to every available format. The `/rfc/` page renders the entire specification in one page, which is convenient for reading it end-to-end while implementing the signing flow.
 
 ## Status
 

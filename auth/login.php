@@ -1,9 +1,13 @@
 <?php
-if (isset($_POST['username'])) {
-    echo "No request for now";
-}
 $activeMenu = "login";
 $pageTitle = "Login";
+
+$token_cookie = $_COOKIE['token'] ?? null;
+if ($token_cookie !== null && $tokenFactory->verify_token($token_cookie)) {
+    header('Location: /user/dashboard.php');
+    exit;
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +51,7 @@ $pageTitle = "Login";
             background: #d5d5d5;
         }
 
-        >.btn-outline {
+        .btn-outline {
             border: 1px solid #3a3a3a;
             color: #eee;
         }

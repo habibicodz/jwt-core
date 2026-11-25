@@ -1,7 +1,7 @@
 <?php
 require './bootstrap.php';
-$pageTitle="Welcome | JWT Testing";
-$activeMenu="home";
+$pageTitle = "Welcome | JWT Testing";
+$activeMenu = "home";
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,5 +1,4 @@
 <?php
-require './bootstrap.php';
 $pageTitle = "Welcome | JWT Testing";
 $activeMenu = "home";
 ?>

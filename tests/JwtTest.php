@@ -1,6 +1,9 @@
 <?php
 
-namespace App\jwtcore;
+
+namespace Test;
+
+use App\jwtcore\Base64Url;
 
 
 class JwtTest

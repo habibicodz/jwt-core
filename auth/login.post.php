@@ -1,22 +1,28 @@
 <?php
 namespace App;
 
+use App\database\DBUtil;
+
 session_start();
-
-use App\utils\DBUtil;
-
-require('../bootstrap.php');
 
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$result = DBUtil::verifyUser($username, $password);
-if (!$result && !isset($result->username)) {
+$user = DBUtil::verifyUser($username, $password);
+
+// If user is verified
+// generate and set token in header
+if ($user === false) {
     header('Location: /auth/login.php');
     exit;
-} else {
-    header('Location: /user/index.php');
-    $_SESSION['userid'] = $result->id;
-    exit;
 }
+
+$token = $tokenFactory->create_token($user);
+setcookie('token', $token, [
+    'expires' => time() + 3600,
+    'path' => '/'
+]);
+
+header('Location: /user/dashboard.php');
+exit;
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\jwtcore;
+
 use App\jwtcore\Base64Url;
 
 final class JwtGenerator
@@ -12,7 +14,7 @@ final class JwtGenerator
     }
 
     // Generate tokens
-    public function generateToken(string $payload)
+    public function generate_token(string $payload)
     {
         //Header
         $header = Base64Url::encode(json_encode(["typ" => "JWT", "alg" => "HS256"]));
@@ -41,13 +43,13 @@ final class JwtGenerator
 
         $generated_signature = $this->create_signature("$header.$payload");
 
-        return $generated_signature == $signature;
+        return strcmp($generated_signature, $signature);
     }
 
     // Create signature from header.payload
-    public function create_signature($data): string
+    private function create_signature($data): string
     {
-        return hash_hmac(algo: 'sha256', data: $data, key: self::$_key, binary: true);
+        return hash_hmac(algo: 'sha256', data: $data, key: $this->_key, binary: false);
     }
 
 }

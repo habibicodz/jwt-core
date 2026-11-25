@@ -2,9 +2,7 @@
 
 namespace App;
 
-use App\utils\DBUtil;
-
-require '../bootstrap.php';
+use App\database\DBUtil;
 
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -16,13 +14,14 @@ $fullName = $_POST['fullname'];
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$result = DBUtil::createUser($fullName, $username, $password);
+$user = DBUtil::createUser($fullName, $username, $password);
 
-if ($result) {
+if ($user) {
     header('Location: /auth/login.php');
     exit;
-} else {
-    header('Location: /auth/signup.php');
-    exit;
 }
+
+
+header('Location: /auth/signup.php');
+exit;
 ?>

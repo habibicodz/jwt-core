@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+$authorizationHeader = $_
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
